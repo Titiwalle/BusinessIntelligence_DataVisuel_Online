@@ -18,11 +18,9 @@ with tab1:
     col1, col2, col3, col4, col5 = st.columns(5)
 
     st.subheader("Dataset overview")
-    with col1:
-        st.metric("Prix médian par personne", f"{median_price:.2f} €")
+    col1.metric("Prix médian par personne", f"{median_price:.2f} €")
 
-    with col2:
-        st.metric("Prix moyen par personne", f"{mean_price:.2f} €")
+    col2.metric("Prix moyen par personne", f"{mean_price:.2f} €")
  
     col3.metric("Listings", len(df_clean))
 
