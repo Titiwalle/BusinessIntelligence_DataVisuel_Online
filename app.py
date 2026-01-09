@@ -34,7 +34,7 @@ with tab1:
     st.dataframe(missing.to_frame("Missing %"))
  
     st.markdown("### Numeric summary")
-    st.dataframe(df.describe())
+    st.dataframe(df_clean.describe())
 
 
 with tab2:
