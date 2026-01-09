@@ -1,6 +1,6 @@
 import streamlit as st
-from analysis import load_data, compute_price_stats, filter_small_units
-from visuals import plot_price_distribution, plot_capacity
+from analysis import *
+from visuals import *
 from filters import apply_filters
 
 
