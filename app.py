@@ -2,7 +2,7 @@ import streamlit as st
 from analysis import *
 from visuals import *
 from filters import apply_filters
-
+import pydeck as pdk
 
 
 df = load_data("airbnb_tp_clean.csv")
@@ -36,6 +36,7 @@ with tab1:
     st.markdown("### Numeric summary")
     st.dataframe(df_clean.describe())
 
+    st.markdown("heatmap")
     st.pyplot(heatmap(df_clean))
 
     st.markdown("### Missing values (%)")
@@ -58,3 +59,34 @@ with tab2:
 with tab3:
     st.subheader("🗂 A définir")
     st.write("Ici tu mets tes analyses avancées…")
+    
+    # Centrer la carte sur Lyon
+    midpoint = (df_map["latitude"].mean(), df_map["longitude"].mean())
+
+    # Couleurs par quartier 
+    df_map["color"] = df_map["Quarter_Or_City"].astype("category").cat.codes
+
+    layer = pdk.Layer(
+    "ScatterplotLayer",
+    data=df_map,
+    get_position='[longitude, latitude]',
+    get_color='[color * 20, 100, 200]',
+    get_radius=60,
+    pickable=True,
+)
+
+view_state = pdk.ViewState(
+    latitude=midpoint[0],
+    longitude=midpoint[1],
+    zoom=11,
+    pitch=0,
+)
+
+r = pdk.Deck(
+    layers=[layer],
+    initial_view_state=view_state,
+    tooltip={"text": "Quartier : {Quarter_Or_City}"}
+)
+
+st.pydeck_chart(r)
+
