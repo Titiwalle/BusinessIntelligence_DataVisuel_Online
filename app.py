@@ -4,6 +4,8 @@ from visuals import plot_price_distribution, plot_capacity
 
 df_clean = load_data("airbnb_tp_clean.csv")
 
+st.set_page_config(layout="wide")
+
 st.title("Dashboard Airbnb")
 
 tab1, tab2, tab3 = st.tabs(["📊 Overview", "📈 Analyses", "🗂 A définir"])
