@@ -24,14 +24,14 @@ with tab1:
         st.metric("Prix moyen par personne", f"{mean_price:.2f} €")
     st.subheader("Dataset overview")
  
-    col3.metric("Listings", len(df))
+    col3.metric("Listings", len(df_clean))
 
-    col4.metric("Columns", df.shape[1])
+    col4.metric("Columns", df_clean.shape[1])
 
-    col5.metric("Missing values", df.isna().sum().sum())
+    col5.metric("Missing values", df_clean.isna().sum().sum())
  
     st.markdown("### Missing values (%)")
-    missing = (df.isna().mean() * 100).sort_values(ascending=False)
+    missing = (df_clean.isna().mean() * 100).sort_values(ascending=False)
     st.dataframe(missing.to_frame("Missing %"))
  
     st.markdown("### Numeric summary")
