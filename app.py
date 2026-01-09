@@ -59,18 +59,18 @@ with tab2:
 with tab3:
     st.subheader("🗂 A définir")
     st.write("Ici tu mets tes analyses avancées…")
-    
+
     # Centrer la carte sur Lyon
-    midpoint = (df_map["latitude"].mean(), df_map["longitude"].mean())
+    midpoint = (df_clean["latitude"].mean(), df_clean["longitude"].mean())
 
     # Couleurs par quartier 
-    df_map["color"] = df_map["Quarter_Or_City"].astype("category").cat.codes
+    df_clean["color"] = df_clean["Quarter_Or_City"].astype("category").cat.codes
 
     layer = pdk.Layer(
     "ScatterplotLayer",
-    data=df_map,
+    data=df_clean,
     get_position='[longitude, latitude]',
-    get_color='[color * 20, 100, 200]',
+    get_color='[color * 20, 100, 200]', 
     get_radius=60,
     pickable=True,
 )
