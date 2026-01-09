@@ -1,8 +1,12 @@
 import streamlit as st
 from analysis import load_data, compute_price_stats, filter_small_units
 from visuals import plot_price_distribution, plot_capacity
+from filters import apply_filters
 
-df_clean = load_data("airbnb_tp_clean.csv")
+
+
+df = load_data("airbnb_tp_clean.csv")
+df_clean = apply_filters(df)
 
 st.set_page_config(layout="wide")
 
@@ -28,19 +32,28 @@ with tab1:
     col4.metric("Columns", df_clean.shape[1])
 
     col5.metric("Missing values", df_clean.isna().sum().sum())
- 
+    
+    st.markdown("### Numeric summary")
+    st.dataframe(df_clean.describe())
+
+    st.pyplot(heatmap(df_clean))
+
     st.markdown("### Missing values (%)")
     missing = (df_clean.isna().mean() * 100).sort_values(ascending=False)
     st.dataframe(missing.to_frame("Missing %"))
  
-    st.markdown("### Numeric summary")
-    st.dataframe(df_clean.describe())
-
 
 with tab2:
-    st.subheader("Analyses")
-    st.pyplot(plot_price_distribution(df_clean))
+    st.subheader("Augmenter le taux d’occupation des logements accueillant 2 à 4 personnes de 70% à 80% au cours du prochain trimestre")
     st.pyplot(plot_capacity(df_clean))
+    st.pyplot(plot_price_distribution(df_clean))
+
+    st.subheader("Augmenter le prix médian par personne de 5% tout en maintenant une note moyenne de 4,7 ou plus dans les avis sur une période de six mois")
+    st.pyplot(plot_dist_pricebyperson(df_clean))
+
+    st.subheader("Réduire la proportion de logements offrant moins de 20 équipements à moins de 25% d’ici la fin de l’année")
+    st.pyplot(plot_dist_equipements(df_clean))
+
 
 with tab3:
     st.subheader("🗂 A définir")
