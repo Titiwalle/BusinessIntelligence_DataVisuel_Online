@@ -15,7 +15,7 @@ with tab1:
     st.dataframe(df_clean)
     median_price, mean_price = compute_price_stats(df_clean)
 
-    col1, col2, col3, col4, col5 = st.columns(4)
+    col1, col2, col3, col4, col5 = st.columns(5)
 
     with col1:
         st.metric("Prix médian par personne", f"{median_price:.2f} €")
