@@ -58,8 +58,6 @@ with tab2:
 
 with tab3:
     st.subheader("🗂 A définir")
-    st.write("Ici tu mets tes analyses avancées…")
-
     # Centrer la carte sur Lyon
     midpoint = (df_clean["latitude"].mean(), df_clean["longitude"].mean())
 
