@@ -73,20 +73,18 @@ with tab3:
     get_color='[color * 20, 100, 200]', 
     get_radius=60,
     pickable=True,
-)
+    )
+    view_state = pdk.ViewState(
+        latitude=midpoint[0],
+        longitude=midpoint[1],
+        zoom=11,
+        pitch=0,
+    )
 
-view_state = pdk.ViewState(
-    latitude=midpoint[0],
-    longitude=midpoint[1],
-    zoom=11,
-    pitch=0,
-)
+    r = pdk.Deck(
+        layers=[layer],
+        initial_view_state=view_state,
+        tooltip={"text": "Quartier : {Quarter_Or_City}"}
+    )
 
-r = pdk.Deck(
-    layers=[layer],
-    initial_view_state=view_state,
-    tooltip={"text": "Quartier : {Quarter_Or_City}"}
-)
-
-st.pydeck_chart(r)
-
+    st.pydeck_chart(r)
