@@ -29,8 +29,14 @@ def apply_filters(df):
         df = df[df.bedrooms.between(*bed)]
  
     if "Quarter_Or_City" in df.columns:
-        neigh = df.Quarter_Or_City.dropna().unique()
-        selected = st.sidebar.multiselect("Quarter_Or_City", neigh, neigh)
-        df = df[df.Quarter_Or_City.isin(selected)]
- 
+        options = sorted(df["Quarter_Or_City"].dropna().unique())
+
+        selected = st.sidebar.multiselect(
+            "Choisir un ou plusieurs quartiers",
+            options,
+            default=options  # tous sélectionnés par défaut
+        )
+
+        df = df[df["Quarter_Or_City"].isin(selected)]
+
     return df
